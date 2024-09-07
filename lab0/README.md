@@ -332,3 +332,64 @@ deck.h:5:18: note:      ‘virtual void Deck::print(std::ostream&) const’
 make: *** [Makefile:60: lab0] Error 1
 ```
 Problem found: The derived classes (PinochleDeck and TexasDeck) are still considered abstract because they do not properly override the pure virtual function print from the Deck base class. Changed the header files that declared base class and derived class to make them match.
+
+### Runtime errors
+No error occurred during runtime
+
+
+## Expected Output
+
+### Initial Output
+```
+[y.zichen@shell lab0]$ ./lab0
+Pinochle Deck:
+9 of C 9 of D 9 of H 9 of S J of C J of D J of H J of S 
+Q of C Q of D Q of H Q of S K of C K of D K of H K of S 
+10 of C 10 of D 10 of H 10 of S A of C A of D A of H A of S 
+9 of C 9 of D 9 of H 9 of S J of C J of D J of H J of S 
+Q of C Q of D Q of H Q of S K of C K of D K of H K of S 
+10 of C 10 of D 10 of H 10 of S A of C A of D A of H A of S 
+
+
+Texas Deck:
+2 of C 2 of D 2 of H 2 of S 3 of C 3 of D 3 of H 3 of S 
+4 of C 4 of D 4 of H 4 of S 5 of C 5 of D 5 of H 5 of S 
+6 of C 6 of D 6 of H 6 of S 7 of C 7 of D 7 of H 7 of S 
+8 of C 8 of D 8 of H 8 of S 9 of C 9 of D 9 of H 9 of S 
+10 of C 10 of D 10 of H 10 of S J of C J of D J of H J of S 
+Q of C Q of D Q of H Q of S K of C K of D K of H K of S 
+A of C A of D A of H A of S 
+```
+Initial output looks correct. Changed formatting to make it look nicer:
+```
+[y.zichen@iht32-1501.sif lab0]$ ./lab0
+Pinochle Deck:
+9 of C  9 of D  9 of H  9 of S  
+J of C  J of D  J of H  J of S  
+Q of C  Q of D  Q of H  Q of S  
+K of C  K of D  K of H  K of S  
+10 of C  10 of D  10 of H  10 of S  
+A of C  A of D  A of H  A of S  
+9 of C  9 of D  9 of H  9 of S  
+J of C  J of D  J of H  J of S  
+Q of C  Q of D  Q of H  Q of S  
+K of C  K of D  K of H  K of S  
+10 of C  10 of D  10 of H  10 of S  
+A of C  A of D  A of H  A of S  
+
+
+Texas Deck:
+2 of C  2 of D  2 of H  2 of S  
+3 of C  3 of D  3 of H  3 of S  
+4 of C  4 of D  4 of H  4 of S  
+5 of C  5 of D  5 of H  5 of S  
+6 of C  6 of D  6 of H  6 of S  
+7 of C  7 of D  7 of H  7 of S  
+8 of C  8 of D  8 of H  8 of S  
+9 of C  9 of D  9 of H  9 of S  
+10 of C  10 of D  10 of H  10 of S  
+J of C  J of D  J of H  J of S  
+Q of C  Q of D  Q of H  Q of S  
+K of C  K of D  K of H  K of S  
+A of C  A of D  A of H  A of S  
+```

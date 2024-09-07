@@ -108,7 +108,7 @@ TexasDeck::TexasDeck(){
 void TexasDeck::print(std::ostream& os){
     int count = 0;
     for (const auto& card: mycards) {
-        os << card << " ";
+        os << card << "  ";
         if (++count % 4 == 0) {
             os << "\n";
         }
