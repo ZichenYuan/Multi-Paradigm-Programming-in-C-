@@ -1,5 +1,4 @@
 # Lab0
-
 ## Group Members
 - Sunny Yuan (y.zichen@wustl.edu)
 - Kathy Pan (kaiyun.p@wustl.edu)
@@ -218,7 +217,7 @@ In file included from card.h:17,
                  from card.h:17,
                  from card.cpp:2:
 ```
-Problem found: Didn't use include guards --  `#ifndef CARD_H` and `#define CARD_H` to prevent multiple inclusions of the same header file. The problem is resolved after adding `#ifndef CARD_H`, `#define CARD_H`, and `#endif`.
+Problem found: Didn't use include guards --  `#ifndef CARD_H` and `#define CARD_H` to prevent multiple inclusions of the same header file. The problem is resolved after adding `#ifndef CARD_H`, `#define CARD_H`, and `#endif`. Since we defined the same operators for multiple classes, the guards are necessary for successful compiling.
 
 
 Error message: 
@@ -360,7 +359,9 @@ Texas Deck:
 Q of C Q of D Q of H Q of S K of C K of D K of H K of S 
 A of C A of D A of H A of S 
 ```
-Initial output looks correct. Changed formatting to make it look nicer:
+Initial output looks correct. Changed formatting to make it look nicer.
+
+### Final Output
 ```
 [y.zichen@iht32-1501.sif lab0]$ ./lab0
 Pinochle Deck:

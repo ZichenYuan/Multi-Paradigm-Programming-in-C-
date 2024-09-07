@@ -32,4 +32,4 @@ class PinochleDeck: public Deck {
         void print(std::ostream& os);
 };
 
-#endif // PINOCHLE_DECK_H
+#endif 

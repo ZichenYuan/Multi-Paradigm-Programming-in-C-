@@ -1,4 +1,4 @@
-#ifdef TEMPLATE_HEADERS_INCLUDE_SOURCE  // Ensure this only compiles when the flag is defined
+#ifdef TEMPLATE_HEADERS_INCLUDE_SOURCE  
 
 #include <iostream>
 #include "card.h"
