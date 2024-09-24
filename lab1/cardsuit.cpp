@@ -1,3 +1,4 @@
+// Source file for card suit, defines four types of suit 
 
 #include <iostream>
 #include "cardsuit.h"

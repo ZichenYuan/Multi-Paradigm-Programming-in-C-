@@ -1,3 +1,5 @@
+// Defines a pinochle deck class
+
 #include "pinochle.h"
 
 std::ostream &operator<<(std::ostream& os, const PinochleRank& rank) {
@@ -55,15 +57,10 @@ PinochleRank& operator++(PinochleRank& rank) {
     return rank;
 }
 
-//constructor 
 PinochleDeck::PinochleDeck(){
     for (PinochleRank i = PinochleRank::Nine; i!=PinochleRank::Undefined;++i){
         for (Suit j = Suit::Clubs; j!=Suit::Undefined;++j){
             mycards.push_back(Card(i,j));
-        }
-    }
-    for (PinochleRank i = PinochleRank::Nine; i!=PinochleRank::Undefined;++i){
-        for (Suit j = Suit::Clubs; j!=Suit::Undefined;++j){
             mycards.push_back(Card(i,j));
         }
     }

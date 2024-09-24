@@ -1,3 +1,5 @@
+// Header file for pinochle deck
+
 #ifndef PINOCHLE_DECK_H
 #define PINOCHLE_DECK_H
 

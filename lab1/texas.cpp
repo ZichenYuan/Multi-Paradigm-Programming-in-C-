@@ -1,3 +1,5 @@
+// Defines a texas hold'em deck
+
 #include "texas.h"
 
 std::ostream& operator<<(std::ostream& os, const TexasRank& rank){

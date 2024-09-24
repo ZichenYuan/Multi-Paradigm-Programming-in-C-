@@ -1,3 +1,5 @@
+// Header file for Texas Hold'em deck
+
 #ifndef TEXAS_H
 #define TEXAS_H
 

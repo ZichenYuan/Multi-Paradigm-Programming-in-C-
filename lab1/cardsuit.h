@@ -1,3 +1,5 @@
+// Header file for card suit
+
 #ifndef SUIT_H
 #define SUIT_H
 
