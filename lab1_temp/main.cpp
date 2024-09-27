@@ -22,7 +22,6 @@ int main(){
         pinochle_deck2.print(std::cout);
         std::cout << std::endl;
 
-        // Collect all cards from the second Pinochle deck to the first
         pinochle_deck1.collect(pinochle_deck2);
 
         std::cout << "First Pinochle Deck after collecting cards from the second deck:" << std::endl;

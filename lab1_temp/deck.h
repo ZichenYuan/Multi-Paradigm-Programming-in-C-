@@ -19,12 +19,14 @@ class Deck : public CardSet<R, S> {
     public:
     Deck() {}
     ~Deck() {}
+    // TODO: should define in deck.cpp
     void shuffle(){
         std::random_device rd;
         std::mt19937 g(rd());
         std::shuffle(this->cards.begin(), this->cards.end(), g);
     }
 
+    // TODO: should define in deck.cpp
     void collect(CardSet<R, S> &cardset){
         try{
             while (!cardset.is_empty()){

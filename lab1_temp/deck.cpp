@@ -1,5 +1,6 @@
 #include "deck.h"
 
+// TODO: defined in deck.h, should define here
 // shuffle function
 // template <typename R, typename S>
 // void Deck<R, S>::shuffle()
