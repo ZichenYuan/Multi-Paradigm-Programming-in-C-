@@ -29,7 +29,7 @@ class Deck : public CardSet<R, S> {
     // TODO: should define in deck.cpp
     void collect(CardSet<R, S> &cardset){
         try{
-            while (!cardset.is_empty()){
+            while (!cardset.isEmpty()){
                 cardset >> *this;
             }
         }

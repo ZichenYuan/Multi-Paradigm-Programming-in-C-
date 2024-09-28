@@ -19,7 +19,7 @@ void CardSet<R, S>::print(std::ostream& os, size_t per_line) {
 
 //is_empty function
 template<typename R, typename S>
-bool CardSet<R,S>::is_empty() {
+bool CardSet<R,S>::isEmpty() {
     if(cards.empty()) {
         return true;
     } else {

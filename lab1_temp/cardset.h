@@ -12,7 +12,7 @@ protected:
 public:
     void print(std::ostream& os, size_t per_line = 4);
 
-    bool is_empty();
+    bool isEmpty();
 
     CardSet<R,S> & operator>> (CardSet<R,S> & other);
     
