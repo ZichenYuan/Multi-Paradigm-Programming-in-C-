@@ -101,7 +101,7 @@ int HoldEmGame::play(){
         deal();
 
         // (10) print out the string "BOARD (river):" and then the cards in the board member variable,
-        std::cout << "BOARD (turn):" << std::endl;
+        std::cout << "BOARD (river):" << std::endl;
         shared.print(std::cout);
 
         // (11) use the deck's collect member function repeatedly to move the cards back out of each player's hand into the deck,
