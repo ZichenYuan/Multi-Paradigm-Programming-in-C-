@@ -74,5 +74,128 @@ No error occurred during runtime
 ```
 
 ### Final Output
+Testing no arguments passed in
 ```
+[samantha.z@shell lab1_temp]$ ./lab1
+Usage: ./lab1 <GameName> <Player1> <Player2> ...
+[samantha.z@shell lab1_temp]$ ./lab1 大名单 p1 p2
+Error: Unknown game type "大名单".
+```
+Testing fewer or more than required arguments passed in
+```
+[samantha.z@shell lab1_temp]$ ./lab1 Pinochle p1 p2
+Usage: ./lab1 Pinochle <Player1> <Player2> <Player3> <Player4>
+[samantha.z@shell lab1_temp]$ ./lab1 HoldEm p1 p2 p3 p4 p5 p6 p7 p8 p9 p10
+Usage: ./lab1 HoldEm <Player1> <Player2> [<Player3> ... <Player9>]
+[samantha.z@shell lab1_temp]$ ./lab1 HoldEm p1 p2 p3 p4 p5 p6 p7 p8 p9
+Name: p1
+7 of S  A of H  
+
+Name: p2
+10 of C  4 of C  
+
+Name: p3
+3 of H  5 of C  
+
+Name: p4
+7 of D  10 of D  
+
+Name: p5
+4 of S  J of D  
+
+Name: p6
+4 of H  10 of H  
+
+Name: p7
+6 of S  8 of C  
+
+Name: p8
+6 of D  8 of S  
+
+Name: p9
+A of C  Q of H  
+
+BOARD (flop):
+8 of H  3 of S  A of D  
+BOARD (turn):
+8 of H  3 of S  A of D  3 of D  
+BOARD (river):
+8 of H  3 of S  A of D  3 of D  
+5 of S  
+^C
+```
+Normal testing, and testing for game randomness
+```
+[samantha.z@shell lab1_temp]$ ./lab1 HoldEm p1 p2
+Name: p1
+5 of C  J of H  
+
+Name: p2
+6 of D  5 of D  
+
+BOARD (flop):
+Q of H  7 of S  A of H  
+BOARD (turn):
+Q of H  7 of S  A of H  3 of D  
+BOARD (river):
+Q of H  7 of S  A of H  3 of D  
+Q of S  
+^C
+[samantha.z@shell lab1_temp]$ ./lab1 HoldEm p1 p2
+Name: p1
+7 of S  10 of S  
+
+Name: p2
+4 of D  2 of S  
+
+BOARD (flop):
+8 of C  Q of D  5 of S  
+BOARD (turn):
+8 of C  Q of D  5 of S  3 of C  
+BOARD (river):
+8 of C  Q of D  5 of S  3 of C  
+J of H  
+^C
+[samantha.z@shell lab1_temp]$ ./lab1 Pinochle p1 p2 p3 p4
+Name: p1
+9 of C  Q of H  10 of S  10 of D  
+J of D  J of D  9 of D  K of C  
+9 of H  A of D  K of H  J of H  
+
+Name: p2
+Q of D  J of H  K of S  Q of S  
+A of C  9 of C  K of D  A of H  
+10 of H  J of S  9 of S  9 of D  
+
+Name: p3
+10 of D  10 of C  9 of H  K of C  
+J of C  10 of H  A of D  A of H  
+J of C  Q of C  10 of S  Q of C  
+
+Name: p4
+J of S  A of C  K of S  K of H  
+K of D  Q of D  Q of H  9 of S  
+A of S  Q of S  10 of C  A of S  
+
+^C
+[samantha.z@shell lab1_temp]$ ./lab1 Pinochle p1 p2 p3 p4
+Name: p1
+J of D  A of H  10 of C  Q of H  
+9 of H  J of C  A of S  K of H  
+Q of D  A of S  K of D  K of S  
+
+Name: p2
+10 of H  Q of D  9 of C  10 of D  
+9 of H  10 of S  J of S  10 of D  
+J of S  A of D  K of H  K of C  
+
+Name: p3
+9 of S  9 of C  K of S  Q of H  
+Q of C  J of H  J of D  J of H  
+10 of H  A of D  Q of C  Q of S  
+
+Name: p4
+9 of S  10 of S  K of C  Q of S  
+9 of D  J of C  A of C  9 of D  
+A of C  K of D  A of H  10 of C
 ```
