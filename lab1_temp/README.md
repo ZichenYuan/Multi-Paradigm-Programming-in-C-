@@ -60,7 +60,7 @@ deck.cpp:15:6: note: ‘void Deck<R, S>::collect(CardSet<R, S>&)’ previously d
  void Deck<R, S>::collect(CardSet<R, S> &cardset)
       ^~~~~~~~~~
 ```
-For templated classes like Deck<R, S>, the compiler needs to know the entire implementation of the class wherever it is instantiated. If you split the declaration (in deck.h) and definition (in deck.cpp), the compiler will fail to resolve the symbol correctly during the linking phase, resulting in errors.
+For templated classes like Deck<R, S>, the compiler needs to know the entire implementation of the class wherever it is instantiated. If you split the declaration (in deck.h) and definition (in deck.cpp), the compiler will fail to resolve the symbol correctly during the linking phase, resulting in errors. Problem is solved after removing the definitions from .cpp file.
 
 
 ### Runtime errors
@@ -201,3 +201,21 @@ A of C  K of D  A of H  10 of C
 ```
 
 ### Design decisions
+
+#### 1. Class Inheritance
+- `HoldEmGame` inherits from `Game`, using a common interface (`play()`) while maintaining flexibility to extend to other card games, promoting code reuse.
+
+#### 2. State Management
+- `HoldEmState` enum tracks game stages (`preflop`, `flop`, `turn`, `river`). This provides clear state transitions, making state-specific logic easy to implement and maintain.
+
+#### 3. Deck Design Using Templates
+- `TexasDeck` inherits from a templated `Deck` class, allowing flexible rank and suit configurations for different card games, reducing code duplication.
+
+#### 4. Use of `CardSet`
+- `CardSet` is used for player hands and shared cards, enabling a unified structure for managing and manipulating cards consistently across the game.
+
+#### 5. Encapsulation of `deal()`
+- `deal()` is a `protected` method, ensuring card distribution is handled internally, preserving game integrity.
+
+#### 6. User Interface Functions
+- `printPlayerHands()` and `collectAll()` provide separate interfaces for displaying and resetting the game state, making them easily extendable for future game variants.
