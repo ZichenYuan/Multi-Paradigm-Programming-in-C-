@@ -216,6 +216,3 @@ A of C  K of D  A of H  10 of C
 
 #### 5. Encapsulation of `deal()`
 - `deal()` is a `protected` method, ensuring card distribution is handled internally, preserving game integrity.
-
-#### 6. User Interface Functions
-- `printPlayerHands()` and `collectAll()` provide separate interfaces for displaying and resetting the game state, making them easily extendable for future game variants.
