@@ -6,6 +6,16 @@
 #include "card.h"
 #include "cardsuit.h"
 
+
+/**
+ * @enum TexasRank
+ * @brief Represents the ranks used in a standard Texas Hold'em deck.
+ * 
+ * The TexasRank enumeration defines the standard ranks used in Texas Hold'em poker: 
+ * Two through Ace. An additional value, `Undefined`, is used to indicate an uninitialized 
+ * or unknown rank.
+ */
+
 enum class TexasRank {
     Two,
     Three,

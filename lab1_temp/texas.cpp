@@ -1,3 +1,5 @@
+// Source file for Texas Hold'Em. Defines necessary game logics and operators
+
 #include "texas.h"
 
 std::ostream& operator<<(std::ostream& os, const TexasRank& rank){

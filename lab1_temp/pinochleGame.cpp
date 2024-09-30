@@ -1,4 +1,6 @@
 // Defines necessary operations to play Pinochle Game
+// Source file for Pinochle Game class, derived from 
+// base class game, and defines operations of pinochle game
 
 #include "pinochleGame.h"
 

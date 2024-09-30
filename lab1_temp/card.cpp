@@ -1,3 +1,6 @@
+// Defines card, each card has rank and suit properties
+// as defined by the template
+
 #ifdef TEMPLATE_HEADERS_INCLUDE_SOURCE  
 
 #include <iostream>

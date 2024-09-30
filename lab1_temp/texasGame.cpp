@@ -1,4 +1,6 @@
-// Defines necessary operations of a texas HoldEm game
+// source file for Texas HoldEm Game class, derived from 
+// base class game, and defines operations of Texas HoldEm game
+
 #include "texasGame.h"
 
 const int SUCCESS = 0;

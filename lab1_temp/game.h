@@ -1,4 +1,13 @@
-// Header file for game base class
+/**
+ * @class Game
+ * @brief Abstract base class representing a generic game.
+ * 
+ * This class provides a framework for implementing various types of games.
+ * It includes functionalities to initialize player names from command-line
+ * arguments and provides a common interface for derived game classes to 
+ * implement the `play` function.
+ */
+ 
 #ifndef GAME_H
 #define GAME_H
 #include <iostream>

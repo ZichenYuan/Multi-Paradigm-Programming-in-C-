@@ -1,3 +1,4 @@
+// The source file for cardsuits, defines operators
 
 #include <iostream>
 #include "cardsuit.h"

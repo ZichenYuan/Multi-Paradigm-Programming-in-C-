@@ -1,6 +1,3 @@
-// header file for Pinochle Game class, derived from 
-// base class game, and defines operations of pinochle game
-
 #ifndef PINOCHLEGAME_H
 #define PINOCHLEGAME_H
 
@@ -11,6 +8,15 @@
 #include <iostream>
 #include <string>
 
+/**
+ * @class PinochleGame
+ * @brief Implements a specific game of Pinochle by extending the Game base class.
+ * 
+ * This class encapsulates the game logic for Pinochle, managing a Pinochle deck and
+ * player hands. It provides methods for dealing cards, printing player hands, and 
+ * collecting all cards back into the deck. The play method serves as the main entry 
+ * point for running the game.
+ */
 
 class PinochleGame : public Game {
 protected:
