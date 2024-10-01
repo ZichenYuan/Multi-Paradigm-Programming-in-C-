@@ -1,6 +1,7 @@
+// The source file for cardset, defines operators
+
 #include "cardset.h"
 using namespace std;
-
 
 // print function
 template <typename R, typename S>

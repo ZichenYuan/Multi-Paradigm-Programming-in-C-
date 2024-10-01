@@ -1,4 +1,25 @@
-#include "game.h"
+/**
+ * @file main.cpp
+ * @brief Entry point for the card game application.
+ * 
+ * This file contains the main function, which acts as the starting point for the program.
+ * 
+ * The game types supported are:
+ *  - "Pinochle"
+ *  - "HoldEm"
+ * 
+ * Return codes:
+ *  - 0: Success
+ *  - 1: Incorrect usage of command-line arguments
+ *  - 2: Unknown game type
+ *  - 3: Game creation failed
+ * 
+ * @param argc The number of command-line arguments
+ * @param argv The array of command-line arguments
+ * @return An integer status code representing success or failure
+ */
+ 
+ #include "game.h"
 #include "pinochleGame.h"
 #include "texasGame.h"
 #include <memory>
