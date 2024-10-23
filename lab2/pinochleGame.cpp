@@ -111,6 +111,6 @@ int PinochleGame::play(){
 */
 std::ostream &operator<<(std::ostream &os, const PinochleMelds &meld)
 {
-    os << PinochleGame::meldNames[static_cast<int>(meld)] << ": " << PinochleGame::meldPoints[static_cast<int>(meld)] << " points";;
+    os << PinochleGame::meldNames[static_cast<int>(meld)] << ": " << PinochleGame::meldPoints[static_cast<int>(meld)] << " points";
     return os;
 }
