@@ -4,6 +4,42 @@
 #include "texasGame.h"
 
 const int SUCCESS = 0;
+std::ostream& operator<<(std::ostream& os, const HoldEmHandRank& rank) {
+    switch (rank) {
+        case HoldEmHandRank::xhigh:
+            os << "X High";
+            break;
+        case HoldEmHandRank::pair:
+            os << "Pair";
+            break;
+        case HoldEmHandRank::twopair:
+            os << "Two Pair";
+            break;
+        case HoldEmHandRank::threeofakind:
+            os << "Three of a Kind";
+            break;
+        case HoldEmHandRank::straight:
+            os << "Straight";
+            break;
+        case HoldEmHandRank::flush:
+            os << "Flush";
+            break;
+        case HoldEmHandRank::fullhouse:
+            os << "Full House";
+            break;
+        case HoldEmHandRank::fourofakind:
+            os << "Four of a Kind";
+            break;
+        case HoldEmHandRank::straightflush:
+            os << "Straight Flush";
+            break;
+        default:
+            os << "Undefined";
+            break;
+    }
+    return os;
+}
+
 
 HoldEmGame::HoldEmGame(int argc, const char* argv[])
     : Game(argc, argv) {

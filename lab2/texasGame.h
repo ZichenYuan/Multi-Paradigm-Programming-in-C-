@@ -23,6 +23,21 @@ enum class HoldEmState {
     undefined = 4
 };
 
+enum class HoldEmHandRank {
+    xhigh,
+    pair,
+    twopair,
+    threeofakind,
+    straight,
+    flush,
+    fullhouse,
+    fourofakind,
+    straightflush,
+    undefined 
+};
+
+// left shift operator for HoleEmRank
+std::ostream &operator<<(std::ostream&, const HoldEmHandRank&);
 
 /**
  * @class HoldEmGame

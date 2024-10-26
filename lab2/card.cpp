@@ -14,6 +14,7 @@ std::ostream& operator<<(std::ostream& os, const Card< R, S >& card) {
 }
 
 // Implementation of the rank base comparison
+// True if first less than second
 template <typename R, typename S>
 bool rankBasedCompare(const Card<R, S>& card_1, const Card<R, S>& card_2){
     if (card_1.rank < card_2.rank) {
@@ -34,5 +35,10 @@ bool suitBasedCompare(const Card<R, S>& card_1, const Card<R, S>& card_2){
     }
     return false;
 }
+
+template <typename R, typename S>
+bool operator ==(const Card<R, S>& lhs, const Card<R, S>& rhs) {
+    return lhs.rank == rhs.rank && lhs.suit == rhs.suit;
+};
 
 #endif // TEMPLATE_HEADERS_INCLUDE_SOURCE

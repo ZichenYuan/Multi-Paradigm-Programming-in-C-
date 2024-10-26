@@ -45,6 +45,12 @@ std::ostream &operator<<(std::ostream &os, const PinochleMelds &meld);
  * point for running the game.
  */
 class PinochleGame : public Game {
+private:
+    bool hasOne(std::vector< Card<PinochleRank, Suit> > &cards, PinochleRank rank, Suit suit);
+    bool hasTwo(std::vector< Card<PinochleRank, Suit> > &cards, PinochleRank rank, Suit suit);
+    bool checkOneWholeSuite(std::vector< Card<PinochleRank, Suit> > &cards, PinochleRank rank);
+    bool checkTwoWholeSuites(std::vector< Card<PinochleRank, Suit> > &cards, PinochleRank rank);
+    void suit_independent_evaluation(const CardSet<PinochleRank, Suit>& playerHand, std::vector<PinochleMelds>& melds);
 protected:
     PinochleDeck deck; 
     std::vector< CardSet<PinochleRank, Suit>> playerHands;  

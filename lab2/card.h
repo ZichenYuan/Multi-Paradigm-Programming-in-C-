@@ -26,6 +26,8 @@ bool rankBasedCompare(const Card<R, S>& card_1, const Card<R, S>& card_2);
 template <typename R, typename S>
 bool suitBasedCompare(const Card<R, S>& card_1, const Card<R, S>& card_2);
 
+template <typename R, typename S>
+bool operator ==(const Card<R, S>& lhs, const Card<R, S>& rhs);
 
 #ifdef TEMPLATE_HEADERS_INCLUDE_SOURCE
 #include "card.cpp"  

@@ -61,13 +61,26 @@ void PinochleGame::printPlayerHands(){
     auto playerName = playerNames.begin();
     auto playerHand = playerHands.begin();
 
+    
     while(playerName != playerNames.end()){
-        // print to output stream
+        //print out each player's name and hand to outstream
         std::cout << "Name: " << *playerName << std::endl;
         (*playerHand).print(std::cout);
         std::cout << std::endl;
         ++playerName;
         ++playerHand;
+
+
+        //declare an vector of PinocholeMelds
+        std::vector<PinochleMelds> melds;
+        suit_independent_evaluation(*playerHand, melds);
+
+        //print out the label and value of each meld that was found
+        std::cout << "\n\tMelds: ";
+        for(auto meld : melds) {
+            std::cout << meld << ", ";
+        }
+        std::cout<<std::endl;
     }
 }
  
@@ -113,4 +126,83 @@ std::ostream &operator<<(std::ostream &os, const PinochleMelds &meld)
 {
     os << PinochleGame::meldNames[static_cast<int>(meld)] << ": " << PinochleGame::meldPoints[static_cast<int>(meld)] << " points";
     return os;
+}
+
+bool PinochleGame::hasOne(std::vector< Card<PinochleRank, Suit> > &cards, PinochleRank rank, Suit suit) {
+    return std::find(cards.begin(), cards.end(), Card<PinochleRank, Suit>(rank, suit)) != cards.end();
+}
+
+bool PinochleGame::checkOneWholeSuite(std::vector< Card<PinochleRank, Suit> > &cards, PinochleRank rank){
+    return hasOne(cards, rank, Suit::Clubs) &&
+        hasOne(cards, rank, Suit::Hearts) &&
+        hasOne(cards, rank, Suit::Spades) &&
+        hasOne(cards, rank, Suit::Diamonds);
+}
+
+bool PinochleGame::hasTwo(std::vector< Card<PinochleRank, Suit> > &cards, PinochleRank rank, Suit suit){
+    int count = std::count_if(cards.begin(), cards.end(), [rank, suit](const auto& card) {
+            return card.rank == rank && card.suit == suit;
+        });
+    return count == 2;
+}
+
+bool PinochleGame::checkTwoWholeSuites(std::vector< Card<PinochleRank, Suit> > &cards, PinochleRank rank){
+    return hasTwo(cards, rank, Suit::Clubs) &&
+        hasTwo(cards, rank, Suit::Hearts) &&
+        hasTwo(cards, rank, Suit::Spades) &&
+        hasTwo(cards, rank, Suit::Diamonds);
+}
+
+void PinochleGame::suit_independent_evaluation(const CardSet<PinochleRank, Suit>& playerHand, std::vector<PinochleMelds>& melds){
+    CardSet<PinochleRank, Suit> handCopy(playerHand);
+    // auto?
+    std::vector< Card<PinochleRank, Suit> > CardSet<PinochleRank, Suit>::* setPtr = CardSet<PinochleRank, Suit>::getCardsPtr();
+    std::vector< Card<PinochleRank, Suit> > cards = handCopy.*setPtr;
+
+    // sort by rank in ascending order
+    std::sort(cards.begin(), cards.end(), [](const auto& lhs, const auto& rhs){
+        return rankBasedCompare(lhs,rhs);
+    });
+
+    /*
+    thousandaces for all 8 aces (A♠ A♠ A♥ A♥ A♦ A♦ A♣ A♣)
+    hundredaces for an ace of each suit (A♠ A♥ A♦ A♣) but not if the hand has thousandaces
+    eighthundredkings for all 8 kings (K♠ K♠ K♥ K♥ K♦ K♦ K♣ K♣)
+    eightykings for a king of each suit (K♠ K♥ K♦ K♣) but not if the hand has eighthundredkings
+    sixhundredqueens for all 8 queens (Q♠ Q♠ Q♥ Q♥ Q♦ Q♦ Q♣ Q♣)
+    sixtyqueens for a queen of each suit (Q♠ Q♥ Q♦ Q♣) but not if the hand has sixhundredqueens
+    fourhundredjacks for all 8 jacks (J♠ J♠ J♥ J♥ J♦ J♦ J♣ J♣)
+    fortyjacks for a jack of each suit (J♠ J♥ J♦ J♣) but not if the hand has fourhundredjacks
+    doublepinochle for two jacks of diamonds and two queens of spades (J♦ J♦ Q♠ Q♠)
+    pinochle for a jack of diamonds and a queen of spades (J♦ Q♠) but not if the hand has doublepinochle
+    */
+    if (checkTwoWholeSuites(cards, PinochleRank::Ace)){
+        melds.push_back(PinochleMelds::thousandaces);
+    }else if (checkOneWholeSuite(cards, PinochleRank::Ace)){
+        melds.push_back(PinochleMelds::hundredaces);
+    }
+
+    if (checkTwoWholeSuites(cards, PinochleRank::King)){
+        melds.push_back(PinochleMelds::eighthundredkings);
+    }else if (checkOneWholeSuite(cards, PinochleRank::King)){
+        melds.push_back(PinochleMelds::eightykings);
+    }
+
+    if (checkTwoWholeSuites(cards, PinochleRank::Queen)){
+        melds.push_back(PinochleMelds::sixhundredqueens);
+    }else if (checkOneWholeSuite(cards, PinochleRank::Queen)){
+        melds.push_back(PinochleMelds::sixtyqueens);
+    }
+
+    if (checkTwoWholeSuites(cards, PinochleRank::Jack)){
+        melds.push_back(PinochleMelds::fourhundredjacks);
+    }else if (checkOneWholeSuite(cards, PinochleRank::Jack)){
+        melds.push_back(PinochleMelds::fortyjacks);
+    }
+
+    if (hasTwo(cards, PinochleRank::Jack, Suit::Diamonds) && hasTwo(cards, PinochleRank::Queen, Suit::Spades)){
+        melds.push_back(PinochleMelds::doublepinochle);
+    }else if (hasOne(cards, PinochleRank::Jack, Suit::Diamonds) && hasOne(cards, PinochleRank::Queen, Suit::Spades)){
+        melds.push_back(PinochleMelds::pinochle);
+    }
 }
