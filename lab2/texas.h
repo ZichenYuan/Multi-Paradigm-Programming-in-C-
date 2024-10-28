@@ -17,7 +17,7 @@
  */
 
 enum class TexasRank {
-    Two,
+    Two = 2,
     Three,
     Four,
     Five,
@@ -26,15 +26,16 @@ enum class TexasRank {
     Eight,
     Nine,
     Ten,
-    Jack,
-    Queen,
-    King,
-    Ace,
-    Undefined
+    Jack = 11,
+    Queen = 12,
+    King = 13,
+    Ace = 14, 
+    Undefined = 0
 };
 
 std::ostream& operator<<(std::ostream& os, const TexasRank& rank);
 TexasRank& operator++(TexasRank& rank);
+TexasRank operator+(TexasRank rank, int value);
 
 class TexasDeck: public Deck<TexasRank, Suit>{
     // private:

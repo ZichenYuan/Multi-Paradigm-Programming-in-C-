@@ -5,7 +5,7 @@ using namespace std;
 
 // print function
 template <typename R, typename S>
-void CardSet<R, S>::print(std::ostream& os, size_t per_line) {
+void CardSet<R, S>::print(std::ostream& os, size_t per_line) const {
     size_t count = 0;
     for (const auto& card : cards) {
         os << card << "  ";
@@ -35,9 +35,4 @@ CardSet<R,S> & CardSet<R,S>::operator>> (CardSet<R,S> & other) {
     return *this;
 }
 
-// get pointer that can be used to access, sort different combinations of cards within the card set
-template<typename R, typename S>
-std::vector<Card<R, S> > CardSet<R, S>::* CardSet<R, S>::getCardsPtr()
-{
-    return &CardSet<R, S>::cards;
-}
+

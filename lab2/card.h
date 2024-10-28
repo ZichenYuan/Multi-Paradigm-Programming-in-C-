@@ -13,6 +13,10 @@ struct Card {
 
     // Constructor
     Card(R r, S s) : rank(r), suit(s) {}
+
+    // accessor
+    R getRank() const { return rank; }
+    S getSuit() const { return suit; }
 };
 
 template <typename R, typename S>

@@ -98,6 +98,17 @@ TexasRank& operator++(TexasRank& rank){
     return rank;
 }
 
+TexasRank operator+(TexasRank rank, int value) {
+    int rankValue = static_cast<int>(rank);
+    rankValue += value;
+
+    
+    if (rankValue > static_cast<int>(TexasRank::Ace) || rankValue < static_cast<int>(TexasRank::Two)) {
+        return TexasRank::Undefined; 
+    }
+
+    return static_cast<TexasRank>(rankValue);
+}
 
 TexasDeck::TexasDeck(){
     for (TexasRank i = TexasRank::Two; i!=TexasRank::Undefined;++i){

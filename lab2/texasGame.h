@@ -49,6 +49,16 @@ std::ostream &operator<<(std::ostream&, const HoldEmHandRank&);
  * as the main game loop for running the game.
  */
 class HoldEmGame : public Game {
+public: 
+	struct PlayerHand {
+		CardSet<TexasRank, Suit> hand;
+		std::string name;
+		HoldEmHandRank rank;
+
+		PlayerHand(const CardSet<TexasRank, Suit>& handSet, const std::string& playerName, HoldEmHandRank handRank) : hand(handSet), name(playerName), rank(handRank) {}
+	};
+
+
 protected:
     // The current state of the game
     HoldEmState state;
@@ -62,6 +72,8 @@ protected:
     // Protected method to deal cards
     virtual void deal();
 
+    HoldEmHandRank holdem_hand_evaluation(const CardSet<TexasRank, Suit>& playerHand);
+    HoldEmHandRank evaluate_hand(const std::vector<Card<TexasRank, Suit>>& cards_value);
 public:
     HoldEmGame(int argc, const char* argv[]);
     void printPlayerHands();
@@ -69,3 +81,6 @@ public:
     virtual int play();
     virtual ~HoldEmGame() {}
 };
+
+
+bool operator<(const HoldEmGame::PlayerHand& lhs, const HoldEmGame::PlayerHand& rhs);

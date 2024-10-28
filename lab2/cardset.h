@@ -32,10 +32,10 @@ public:
     CardSet<R, S>() = default;
 
     // virtual destructor
-    virtual ~CardSet();
+    virtual ~CardSet() = default;
 
     // declare print functions
-    void print(std::ostream& os, size_t per_line = 4);
+    void print(std::ostream& os, size_t per_line = 4) const;
 
     // Checks whether the CardSet is empty
     bool isEmpty();
@@ -46,9 +46,26 @@ public:
     // Copy constructor(default), create deep copy of the cards
     CardSet(const CardSet<R, S> & other) = default;
 
-    // Get a pointer to the class protected vector data member
-    static std::vector<Card<R, S> > CardSet<R, S>::* getCardsPtr();
+    // get a pointer to the class protected vector data member
+    static std::vector<Card<R, S>>* getCardsPtr(CardSet<R, S>& instance) {
+        return &instance.cards;
+    }
 
+    static const std::vector<Card<R, S>>* getCardsPtr(const CardSet<R, S>& instance) {
+        return &instance.cards;
+    }
+
+    auto begin() { return cards.begin(); }
+    auto end() { return cards.end(); }
+    auto begin() const { return cards.begin(); }
+    auto end() const { return cards.end(); }
+
+    // access the card by index
+    Card<R, S>& operator[](std::size_t index) { return cards[index]; }
+    const Card<R, S>& operator[](std::size_t index) const { return cards[index]; }
+
+    // get the size of the cardset
+    std::size_t size() const { return cards.size(); }
 };
 
 #ifdef TEMPLATE_HEADERS_INCLUDE_SOURCE

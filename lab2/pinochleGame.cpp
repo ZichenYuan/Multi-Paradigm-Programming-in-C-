@@ -156,8 +156,8 @@ bool PinochleGame::checkTwoWholeSuites(std::vector< Card<PinochleRank, Suit> > &
 void PinochleGame::suit_independent_evaluation(const CardSet<PinochleRank, Suit>& playerHand, std::vector<PinochleMelds>& melds){
     CardSet<PinochleRank, Suit> handCopy(playerHand);
     // auto?
-    std::vector< Card<PinochleRank, Suit> > CardSet<PinochleRank, Suit>::* setPtr = CardSet<PinochleRank, Suit>::getCardsPtr();
-    std::vector< Card<PinochleRank, Suit> > cards = handCopy.*setPtr;
+    auto setPtr = CardSet<PinochleRank, Suit>::getCardsPtr(playerHand);
+    std::vector< Card<PinochleRank, Suit> > cards = *setPtr;
 
     // sort by rank in ascending order
     std::sort(cards.begin(), cards.end(), [](const auto& lhs, const auto& rhs){
