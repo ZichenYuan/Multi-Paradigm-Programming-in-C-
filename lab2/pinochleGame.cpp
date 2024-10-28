@@ -67,27 +67,34 @@ void PinochleGame::printPlayerHands(){
         std::cout << "Name: " << *playerName << std::endl;
         (*playerHand).print(std::cout);
         std::cout << std::endl;
-        ++playerName;
-        ++playerHand;
-
 
         //declare an vector of PinocholeMelds
         std::vector<PinochleMelds> melds;
+       
         suit_independent_evaluation(*playerHand, melds);
 
+        ++playerName;
+        ++playerHand;
+
         //print out the label and value of each meld that was found
-        std::cout << "\n\tMelds: ";
-        for(auto meld : melds) {
-            std::cout << meld << ", ";
+        std::cout << "Melds: ";
+        if (melds.empty()) {
+            std::cout << "No possible melds!" << std::endl;
+        }else{
+            for(auto meld : melds) {
+                std::cout << meld << ", ";
+            }
+            std::cout << "\n";
         }
-        std::cout<<std::endl;
+        std::cout << std::endl;
     }
 }
  
 void PinochleGame::collectAll(){
-    auto playerHand = playerHands.begin();
-    while(playerHand != playerHands.end()){
-        deck.collect(*playerHand);
+    for (auto &hand: playerHands) {
+        while(!hand.isEmpty()){
+            deck.collect(hand);
+        }
     }
 }
 
@@ -110,9 +117,10 @@ int PinochleGame::play(){
         // (6) read in a string from the standard input stream - if that string is "yes" the member function should return a value 
         // to indicate success, and otherwise it should repeat the sequence of steps.
         if (endGamePrompt()){
+
             return SUCCESS;
         }
-        std::cout << "Starting a new game" << std::endl;
+        std::cout << "Starting a new game... \n" << std::endl;
     }
 }
 
@@ -154,8 +162,9 @@ bool PinochleGame::checkTwoWholeSuites(std::vector< Card<PinochleRank, Suit> > &
 }
 
 void PinochleGame::suit_independent_evaluation(const CardSet<PinochleRank, Suit>& playerHand, std::vector<PinochleMelds>& melds){
+    
     CardSet<PinochleRank, Suit> handCopy(playerHand);
-    // auto?
+
     auto setPtr = CardSet<PinochleRank, Suit>::getCardsPtr(playerHand);
     std::vector< Card<PinochleRank, Suit> > cards = *setPtr;
 

@@ -245,9 +245,10 @@ void HoldEmGame::printPlayerHands(){
 }
 
 void HoldEmGame::collectAll(){
-    auto playerHand = playerHands.begin();
-    while(playerHand != playerHands.end()){
-        deck.collect(*playerHand);
+    for (auto &hand: playerHands) {
+        while(!hand.isEmpty()){
+            deck.collect(hand);
+        }
     }
 }
 
