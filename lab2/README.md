@@ -5,21 +5,24 @@
 - Samantha Zheng (samantha.z@wustl.edu)
 
 ### Question 8
-** Please document why you added your own copy constructor if that is what you did, or why you instead are using the one the compiler supplies (i.e., why that one is sufficient). **
+Please document why you added your own copy constructor if that is what you did, or why you instead are using the one the compiler supplies (i.e., why that one is sufficient). 
+
 We used the default copy constructor because it creates a deep copy of the cards vector, which is sufficient.
 
 ## Error documentation
 ### Compile errors
+```
 g++ -o lab2 -DUNIX   -DTEMPLATE_HEADERS_INCLUDE_SOURCE cardsuit.cpp pinochle.cpp texas.cpp main.cpp game.cpp pinochleGame.cpp texasGame.cpp 
 pinochleGame.cpp: In member function ‘void PinochleGame::collectAll()’:
 pinochleGame.cpp:101:26: error: no match for ‘operator*’ (operand type is ‘CardSet<PinochleRank, Suit>’)
              deck.collect(*hand);
                           ^~~~~
 make: *** [Makefile:60: lab2] Error 1
-
+```
 Solution: getting rid of the * parameter, no need to dereference
 
 ### Runtime errors
+```
 [y.zichen@shell lab2]$ ./lab2 Pinochle Tom David Jess John
 Name: Tom
 A of D  Q of D  K of C  Q of S  
@@ -51,7 +54,7 @@ K of H  9 of S  9 of D  A of H
 Q of C  J of S  A of S  9 of C  
 
 Segmentation fault (core dumped)
-
+```
 Solution: Incremented the playerHand pointer before calling `suit_independent_evaluation` resulting in the pointer pointing to something that doesn't exist. Moved `suit_independent_evaluation` before updating the pointer.
 
 ### Final Output
