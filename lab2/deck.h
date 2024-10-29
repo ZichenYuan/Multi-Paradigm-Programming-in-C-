@@ -42,8 +42,4 @@ class Deck : public CardSet<R, S> {
     }
 };
 
-// #ifdef TEMPLATE_HEADERS_INCLUDE_SOURCE
-// #include "deck.cpp"
-// #endif
-
 #endif // DECK_H

@@ -41,12 +41,8 @@ PinochleRank& operator++(PinochleRank& rank);
  * specific to a Pinochle game.
  */
 class PinochleDeck: public Deck<PinochleRank, Suit> {
-    // private:
-    //     std::vector< Card < PinochleRank, Suit > > mycards;
-
     public:
         PinochleDeck();
-        // void print(std::ostream& os);
 };
 
 #endif 

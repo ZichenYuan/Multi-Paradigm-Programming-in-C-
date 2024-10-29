@@ -30,13 +30,18 @@ const int SUCCESS = 0;
 const int ERROR_INCORRECT_USAGE = 1;
 const int ERROR_UNKNOWN_GAME_TYPE = 2;
 const int ERROR_GAME_CREATION_FAILED = 3;
+const int INVALID_PLAYER_NUMBER = 4;
+
 
 std::shared_ptr<Game> create(int argc, const char *argv[]);
 
 int main(int argc, const char *argv[]) {
     // Check for enough arguments
-    if (argc < 3) {
+    if (argc < 2) {
         std::cout << "Usage: " << argv[0] << " <GameName> <Player1> <Player2> ..." << std::endl;
+        std::cout << "GameName: Pinochle or HoldEm." << std::endl;
+        std::cout << "Pinochle: 4 players." << std::endl;
+        std::cout << "HoldEm: 2-9 players." << std::endl;
         return ERROR_INCORRECT_USAGE;
     }
 
@@ -46,14 +51,16 @@ int main(int argc, const char *argv[]) {
     if (gameName == "Pinochle") {
         if (argc != 6) { // 1 for executable name, 1 for game name, 4 for player names
             std::cout << "Usage: " << argv[0] << " Pinochle <Player1> <Player2> <Player3> <Player4>" << std::endl;
-            return ERROR_INCORRECT_USAGE;
+            std::cout << "Pinochle needs 4 players." << std::endl;
+            return INVALID_PLAYER_NUMBER;
         }
     }
     // Check for "HoldEm" game type and ensure there are 2 ~ 9 players
     else if (gameName == "HoldEm") {
         if (argc < 4 || argc > 11) { // 1 for executable name, 1 for game name, 2-9 for player names
             std::cout << "Usage: " << argv[0] << " HoldEm <Player1> <Player2> [<Player3> ... <Player9>]" << std::endl;
-            return ERROR_INCORRECT_USAGE;
+            std::cout << "HoldEm needs 2-9 players." << std::endl;
+            return INVALID_PLAYER_NUMBER;
         }
     }
     // Return statement, if game type is unknown
