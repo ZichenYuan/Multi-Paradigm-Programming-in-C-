@@ -245,11 +245,18 @@ void HoldEmGame::printPlayerHands(){
 }
 
 void HoldEmGame::collectAll(){
+    // collect cards from each player
     for (auto &hand: playerHands) {
-        while(!hand.isEmpty()){
+        if(!hand.isEmpty()){
             deck.collect(hand);
         }
+	// clear the player's hand after collect
+	CardSet<TexasRank, Suit>::getCardsPtr(hand)->clear();
     }
+    // collect shared cards
+    deck.collect(shared);
+    // clear the shared cards after collect
+    CardSet<TexasRank, Suit>::getCardsPtr(shared)->clear();
 }
 
 
