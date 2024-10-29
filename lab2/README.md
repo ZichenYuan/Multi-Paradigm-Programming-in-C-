@@ -147,7 +147,91 @@ Do you want to end the game? (Type 'yes' to end): yes
 #### Texas HoldEm
 ```
 [kaiyun.p@iht32-1508.sif lab2]$ ./lab2 HoldEm Apple Bob Candy Debby
+Name: Apple
+A of S  7 of C  
 
+Name: Bob
+2 of H  A of H  
+
+Name: Candy
+3 of S  8 of H  
+
+Name: Debby
+J of S  Q of D  
+
+BOARD (flop):
+5 of S  9 of S  4 of D  
+
+Player rankings after the flop:
+Player Apple
+A of S  7 of C  5 of S  9 of S  
+4 of D  
+Rank: X High
+
+Player Bob
+2 of H  A of H  5 of S  9 of S  
+4 of D  
+Rank: X High
+
+Player Debby
+J of S  Q of D  5 of S  9 of S  
+4 of D  
+Rank: X High
+
+Player Candy
+3 of S  8 of H  5 of S  9 of S  
+4 of D  
+Rank: X High
+
+BOARD (turn):
+5 of S  9 of S  4 of D  3 of H  
+BOARD (river):
+5 of S  9 of S  4 of D  3 of H  
+9 of H  
+Do you want to end the game? (Type 'yes' to end): no
+Starting a new game
+Name: Apple
+5 of H  Q of D  
+
+Name: Bob
+Q of S  9 of D  
+
+Name: Candy
+7 of D  9 of C  
+
+Name: Debby
+2 of S  2 of D  
+
+BOARD (flop):
+4 of H  A of C  4 of D  
+
+Player rankings after the flop:
+Player Debby
+2 of S  2 of D  4 of H  A of C  
+4 of D  
+Rank: Two Pair
+
+Player Bob
+Q of S  9 of D  4 of H  A of C  
+4 of D  
+Rank: Pair
+
+Player Apple
+5 of H  Q of D  4 of H  A of C  
+4 of D  
+Rank: Pair
+
+Player Candy
+7 of D  9 of C  4 of H  A of C  
+4 of D  
+Rank: Pair
+
+BOARD (turn):
+4 of H  A of C  4 of D  2 of C  
+BOARD (river):
+4 of H  A of C  4 of D  2 of C  
+A of D  
+Do you want to end the game? (Type 'yes' to end): yes
 ```
 
 
