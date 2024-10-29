@@ -146,70 +146,8 @@ Do you want to end the game? (Type 'yes' to end): yes
 
 #### Texas HoldEm
 ```
-[kaiyun.p@iht32-1508.sif lab2]$ ./lab2 HoldEm Apple Bob Candy
-Name: Apple
-10 of D  K of C  
+[kaiyun.p@iht32-1508.sif lab2]$ ./lab2 HoldEm Apple Bob Candy Debby
 
-Name: Bob
-10 of S  9 of S  
-
-Name: Candy
-5 of C  7 of S  
-
-BOARD (flop):
-A of H  Q of C  6 of S  
-BOARD (turn):
-A of H  Q of C  6 of S  9 of C  
-BOARD (river):
-A of H  Q of C  6 of S  9 of C  
-6 of D  
-Player Bob
-10 of S  9 of S  A of H  Q of C  
-6 of S  9 of C  6 of D  
-Rank: Two Pair
-
-Player Apple
-10 of D  K of C  A of H  Q of C  
-6 of S  9 of C  6 of D  
-Rank: Pair
-
-Player Candy
-5 of C  7 of S  A of H  Q of C  
-6 of S  9 of C  6 of D  
-Rank: Pair
-
-Do you want to end the game? (Type 'yes' to end): n
-Starting a new game
-Name: Apple
-A of H  Q of C  
-
-Name: Bob
-5 of C  3 of H  
-
-Name: Candy
-6 of C  6 of H  
-
-BOARD (flop):
-4 of D  7 of C  8 of H  
-BOARD (turn):
-4 of D  7 of C  8 of H  3 of S  
-BOARD (river):
-4 of D  7 of C  8 of H  3 of S  
-K of C  
-Player Candy
-6 of C  6 of H  4 of D  7 of C  
-8 of H  3 of S  K of C  
-Rank: Pair
-
-Player Bob
-5 of C  3 of H  4 of D  7 of C  
-8 of H  3 of S  K of C  
-Rank: Pair
-
-Player Apple
-A of H  Q of C  4 of D  7 of C  
-8 of H  3 of S  K of C  
-Rank: X High
 ```
 
 
