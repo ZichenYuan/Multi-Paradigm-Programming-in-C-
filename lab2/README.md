@@ -58,6 +58,27 @@ Segmentation fault (core dumped)
 Solution: Incremented the playerHand pointer before calling `suit_independent_evaluation` resulting in the pointer pointing to something that doesn't exist. Moved `suit_independent_evaluation` before updating the pointer.
 
 ### Final Output
+
+#### Test (Exceptions)
+```
+[kaiyun.p@iht32-1508.sif lab2]$ ./lab2
+Usage: ./lab2 <GameName> <Player1> <Player2> ...
+GameName: Pinochle or HoldEm.
+Pinochle: 4 players.
+HoldEm: 2-9 players.
+[kaiyun.p@iht32-1508.sif lab2]$ echo $?
+1
+[kaiyun.p@iht32-1508.sif lab2]$ ./lab2 HoldEm
+Usage: ./lab2 HoldEm <Player1> <Player2> [<Player3> ... <Player9>]
+HoldEm needs 2-9 players.
+[kaiyun.p@iht32-1508.sif lab2]$ echo $?
+4
+[kaiyun.p@iht32-1508.sif lab2]$ ./lab2 Game3
+Error: Unknown game type "Game3".
+[kaiyun.p@iht32-1508.sif lab2]$ echo $?
+2
+```
+
 #### Pinochle
 ```
 [y.zichen@shell lab2]$ ./lab2 Pinochle Tom David Jess John
@@ -124,7 +145,103 @@ Do you want to end the game? (Type 'yes' to end): yes
 ```
 
 #### Texas HoldEm
+```
+[kaiyun.p@iht32-1508.sif lab2]$ ./lab2 HoldEm Apple Bob Candy
+Name: Apple
+10 of D  K of C  
 
+Name: Bob
+10 of S  9 of S  
+
+Name: Candy
+5 of C  7 of S  
+
+BOARD (flop):
+A of H  Q of C  6 of S  
+BOARD (turn):
+A of H  Q of C  6 of S  9 of C  
+BOARD (river):
+A of H  Q of C  6 of S  9 of C  
+6 of D  
+Player Bob
+10 of S  9 of S  A of H  Q of C  
+6 of S  9 of C  6 of D  
+Rank: Two Pair
+
+Player Apple
+10 of D  K of C  A of H  Q of C  
+6 of S  9 of C  6 of D  
+Rank: Pair
+
+Player Candy
+5 of C  7 of S  A of H  Q of C  
+6 of S  9 of C  6 of D  
+Rank: Pair
+
+Do you want to end the game? (Type 'yes' to end): n
+Starting a new game
+Name: Apple
+A of H  Q of C  
+
+Name: Bob
+5 of C  3 of H  
+
+Name: Candy
+6 of C  6 of H  
+
+BOARD (flop):
+4 of D  7 of C  8 of H  
+BOARD (turn):
+4 of D  7 of C  8 of H  3 of S  
+BOARD (river):
+4 of D  7 of C  8 of H  3 of S  
+K of C  
+Player Candy
+6 of C  6 of H  4 of D  7 of C  
+8 of H  3 of S  K of C  
+Rank: Pair
+
+Player Bob
+5 of C  3 of H  4 of D  7 of C  
+8 of H  3 of S  K of C  
+Rank: Pair
+
+Player Apple
+A of H  Q of C  4 of D  7 of C  
+8 of H  3 of S  K of C  
+Rank: X High
+```
 
 
 ### Design decisions
+Custom Copy Constructor in CardSet Class Template
+
+We implemented a custom copy constructor for the CardSet class to ensure a deep copy of the card vector, preventing unintended data sharing between CardSet objects. We also declared a default constructor using = default to let the compiler synthesize it.
+
+Controlled Violation of Encapsulation
+
+We added a static public member function to CardSet that returns a pointer to the protected card vector. This controlled access allows operations like sorting and evaluation, while minimizing the risk of misuse.
+
+Meld Evaluation for Pinochle Game
+
+We created an enum class, PinochleMelds, to represent melds, and used an array to map meld types to point values, simplifying lookups. A private function, suit_independent_evaluation, evaluates melds by making a deep copy of the player's CardSet to avoid modifying the original set.
+
+Hold'Em Hand Evaluation Logic
+
+The HoldEmGame class has an enum class, HoldEmHandRank, for different poker hand ranks. The holdem_hand_evaluation function uses a deep copy of the CardSet to evaluate and rank hands, ensuring the original set remains unchanged.
+
+Nested Struct for Player Hand in Hold'Em Game
+
+We added a nested struct in HoldEmGame to represent a player's state, including a CardSet, player name, and hand rank. This design simplifies data management and game logic.
+
+Overloading Comparison Operators
+
+We overloaded comparison operators for Card to facilitate card ordering by rank or suit. In HoldEmGame, we overloaded the less than (<) operator for the nested struct to rank players' hands according to game rules.
+
+Use of Copy Constructor During Evaluation
+
+The evaluation functions use deep copies of players' hands to maintain integrity of the original cards while allowing sorting and manipulation for evaluation purposes.
+
+Print Representation of Melds and Hands
+
+We overloaded operator<< for PinochleMelds and HoldEmHandRank to provide a readable representation of melds and hand ranks, making gameplay output more user-friendly and helpful for debugging.
