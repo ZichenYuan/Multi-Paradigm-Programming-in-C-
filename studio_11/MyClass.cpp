@@ -3,7 +3,7 @@
 
 using namespace std;
 
-MyClass::MyClass(char* st): myString(st) {
+MyClass::MyClass(const char* st): myString(st) {
     cout << "Construct" << endl;
     cout << this << endl;
     cout << st << endl;
