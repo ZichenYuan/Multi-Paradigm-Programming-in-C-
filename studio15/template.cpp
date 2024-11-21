@@ -30,6 +30,7 @@ static unsigned int totalSize = 0;
 template <typename T>
 void print(std::ostream& os, const T& value) {
     // os<< "printing with printToOstream function template...";
+    countSize(value);
     os << value << " ";
 }
 
