@@ -5,94 +5,94 @@
 #include <algorithm>
 #include <unordered_map>
 
+// evaluate the best hand rank for a hand
 HoldEmHandRank HoldEmGame::holdem_hand_evaluation(const CardSet<HoldEmRank, Suit>& playerHand) {
-	auto cards = *CardSet<HoldEmRank, Suit>::getCardsPtr(playerHand);
-	
-	if (cards.size() != 7){
-		return HoldEmHandRank::undefined;
-
-	}
-	HoldEmHandRank bestRank = HoldEmHandRank::xhigh;
-
-	std::vector<std::vector<Card<HoldEmRank, Suit>>> possibleHands;
-	for (size_t i = 0; i < cards.size(); ++i) {
-        for (size_t j = i + 1; j < cards.size(); ++j) {
-            std::vector<Card<HoldEmRank, Suit>> possibleHand;
-            for (size_t k = 0; k < cards.size(); ++k) {
-                if (k != i && k != j) {
-                    possibleHand.push_back(cards[k]);
-                }
-            }
-            possibleHands.push_back(possibleHand);
-        }
+ // obtain a reference to the player's cards ny calling getCardsPtr
+    auto cards = *CardSet<HoldEmRank, Suit>::getCardsPtr(playerHand);
+ 
+    // check if the player has 5, 6, or 7 cards otherwise the hand rank is undefined
+ if (cards.size() != 5) {
+        return HoldEmHandRank::undefined;
     }
-	for (const auto& hand : possibleHands) {
-        HoldEmHandRank rank = evaluate_hand(hand);
-        if (rank > bestRank) {
-            bestRank = rank;
-        }}
-	return bestRank;
+
+    // initialize the best rank to be the lowest possible rank
+ HoldEmHandRank bestRank = HoldEmHandRank::xhigh;
+
+    HoldEmHandRank rank = evaluate_hand(cards);
+    return rank;
     
 }
 
 HoldEmHandRank HoldEmGame::evaluate_hand(const std::vector<Card<HoldEmRank, Suit>>& cards_value) {
-	auto cards = cards_value;
-	std::sort(cards.begin(), cards.end(), [](const Card<HoldEmRank, Suit>& a, const Card<HoldEmRank, Suit>& b) {
+ auto cards = cards_value;
+
+    // sort the cards
+ std::sort(cards.begin(), cards.end(), [](const Card<HoldEmRank, Suit>& a, const Card<HoldEmRank, Suit>& b) {
         if (a.getRank() != b.getRank()) return a.getRank() < b.getRank();
         return a.getSuit() < b.getSuit();
     });
-	bool isFlush = std::all_of(cards.begin(), cards.end(), [&](const auto& card) {
-	return card.getSuit() == cards[0].getSuit();	
-			});
-	
-	bool isStraight = true;
-	for (size_t i = 1; i < cards.size(); ++i) {
-		if (cards[i].getRank() != static_cast<HoldEmRank>(cards[i - 1].getRank() + 1)) {
-			isStraight = false;
-			break;
 
-	}
-			}
+    // check for flush
+ bool isFlush = std::all_of(cards.begin(), cards.end(), [&](const auto& card) {
+ return card.getSuit() == cards[0].getSuit(); 
+   });
+ 
+    // check for straight
+ bool isStraight = true;
+ for (size_t i = 1; i < cards.size(); ++i) {
+  if (cards[i].getRank() != static_cast<HoldEmRank>(cards[i - 1].getRank() + 1)) {
+   isStraight = false;
+   break;
+        }
+ }
 
-	if (! isStraight && cards[0].getRank() == HoldEmRank::Two &&
-			cards[1].getRank() == HoldEmRank::Three &&
-			cards[2].getRank() == HoldEmRank::Four &&
-			cards[3].getRank() == HoldEmRank::Five &&
-			cards[4].getRank() == HoldEmRank::Ace) {
-		isStraight = true;
-	}
+    // check for edge case straight A2345
+ if (! isStraight && cards[0].getRank() == HoldEmRank::Two &&
+   cards[1].getRank() == HoldEmRank::Three &&
+   cards[2].getRank() == HoldEmRank::Four &&
+   cards[3].getRank() == HoldEmRank::Five &&
+   cards[4].getRank() == HoldEmRank::Ace) {
+  isStraight = true;
+ }
 
-	if (isFlush && isStraight) {
-		return HoldEmHandRank::straightflush;
-	}
+    // check for straight flush
+ if (isFlush && isStraight) {
+  return HoldEmHandRank::straightflush;
+ }
 
-	std::unordered_map<HoldEmRank, int> rankCount;
-	for (const auto& card : cards) {
-		rankCount[card.getRank()]++;
-	}
-	bool hasFourOfAKind = false;
-	bool hasThreeOfAKind = false;
-	bool hasPair = false;
-	int pairCount = 0;
-	for (const auto& entry: rankCount) {
- 	   int count = entry.second;
-    	   if (count == 4) hasFourOfAKind = true;
-    	   else if (count == 3) hasThreeOfAKind = true;
-    	   else if (count == 2) pairCount++;
+    // count the number of cards of one rank
+ std::unordered_map<HoldEmRank, int> rankCount;
+ for (const auto& card : cards) {
+  rankCount[card.getRank()]++;
+ }
+
+    // check for 4, 3 of a kind or pair by rank counts
+ bool hasFourOfAKind = false;
+ bool hasThreeOfAKind = false;
+ bool hasPair = false;
+ int pairCount = 0;
+ for (const auto& entry: rankCount) {
+      int count = entry.second;
+        if (count == 4) hasFourOfAKind = true;
+     else if (count == 3) hasThreeOfAKind = true;
+     else if (count == 2) pairCount++;
 }
-	
-	if (isFlush && isStraight) return HoldEmHandRank::straightflush;
-	if (hasFourOfAKind) return HoldEmHandRank::fourofakind;
-	if (hasThreeOfAKind && pairCount >= 1) return HoldEmHandRank::fullhouse;
-	if (isFlush) return HoldEmHandRank::flush;
-	if (isStraight) return HoldEmHandRank::straight;
-	if (hasThreeOfAKind) return HoldEmHandRank::threeofakind;
-	if (pairCount >= 2) return HoldEmHandRank::twopair;
-	if (pairCount == 1) return HoldEmHandRank::pair;
+ 
+    // compute the highest rank considering precedence and check results
+ if (isFlush && isStraight) return HoldEmHandRank::straightflush;
+ if (hasFourOfAKind) return HoldEmHandRank::fourofakind;
+ if (hasThreeOfAKind && pairCount >= 1) return HoldEmHandRank::fullhouse;
+ if (isFlush) return HoldEmHandRank::flush;
+ if (isStraight) return HoldEmHandRank::straight;
+ if (hasThreeOfAKind) return HoldEmHandRank::threeofakind;
+ if (pairCount >= 2) return HoldEmHandRank::twopair;
+ if (pairCount == 1) return HoldEmHandRank::pair;
 
-	return HoldEmHandRank::xhigh;
+ return HoldEmHandRank::xhigh;
 }
 const int SUCCESS = 0;
+
+// print the rank value by overloading the output stream operator
 std::ostream& operator<<(std::ostream& os, const HoldEmHandRank& rank) {
     switch (rank) {
         case HoldEmHandRank::xhigh:
@@ -129,60 +129,35 @@ std::ostream& operator<<(std::ostream& os, const HoldEmHandRank& rank) {
     return os;
 }
 
+// allow comparing PlayerHand structs by overloading the < operator
 bool operator<(const HoldEmGame::PlayerHand& lhs, const HoldEmGame::PlayerHand& rhs) {
+    // compare by rank
     if (lhs.rank != rhs.rank) {
         return lhs.rank < rhs.rank;
     }
 
+    // get the cards from each player's hand
     const auto& lhsCards = *CardSet<HoldEmRank, Suit>::getCardsPtr(lhs.hand);
     const auto& rhsCards = *CardSet<HoldEmRank, Suit>::getCardsPtr(rhs.hand);
 
-    switch (lhs.rank) {
-        case HoldEmHandRank::pair:
-            if (lhsCards[0].getRank() != rhsCards[0].getRank()) {
-                return lhsCards[0].getRank() < rhsCards[0].getRank();
-            }
-            for (size_t i = 1; i < lhsCards.size(); ++i) {
-                if (lhsCards[i].getRank() != rhsCards[i].getRank()) {
-                    return lhsCards[i].getRank() < rhsCards[i].getRank();
-                }
-            }
-            break;
+    // sort cards in descending order to compare
+    std::vector<Card<HoldEmRank, Suit>> sortedLhs = lhsCards;
+    std::vector<Card<HoldEmRank, Suit>> sortedRhs = rhsCards;
 
-        case HoldEmHandRank::twopair:
-            if (lhsCards[0].getRank() != rhsCards[0].getRank()) {
-                return lhsCards[0].getRank() < rhsCards[0].getRank();
-            }
-            if (lhsCards[1].getRank() != rhsCards[1].getRank()) {
-                return lhsCards[1].getRank() < rhsCards[1].getRank();
-            }
-            return lhsCards[2].getRank() < rhsCards[2].getRank();
+    std::sort(sortedLhs.begin(), sortedLhs.end(), [](const Card<HoldEmRank, Suit>& a, const Card<HoldEmRank, Suit>& b) {
+        return a.getRank() > b.getRank();
+    });
+    std::sort(sortedRhs.begin(), sortedRhs.end(), [](const Card<HoldEmRank, Suit>& a, const Card<HoldEmRank, Suit>& b) {
+        return a.getRank() > b.getRank();
+    });
 
-        case HoldEmHandRank::threeofakind:
-            return lhsCards[0].getRank() < rhsCards[0].getRank();
-
-        case HoldEmHandRank::straight:
-        case HoldEmHandRank::straightflush:
-            return lhsCards.back().getRank() < rhsCards.back().getRank();
-
-        case HoldEmHandRank::flush:
-        case HoldEmHandRank::xhigh:
-            for (size_t i = 0; i < lhsCards.size(); ++i) {
-                if (lhsCards[i].getRank() != rhsCards[i].getRank()) {
-                    return lhsCards[i].getRank() < rhsCards[i].getRank();
-                }
-            }
-            break;
-
-        case HoldEmHandRank::fullhouse:
-            return lhsCards[0].getRank() < rhsCards[0].getRank();
-
-        case HoldEmHandRank::fourofakind:
-            return lhsCards[0].getRank() < rhsCards[0].getRank();
-
-        default:
-            return false;
+    for (size_t i = 0; i < sortedLhs.size(); ++i) {
+        if (sortedLhs[i].getRank() != sortedRhs[i].getRank()) {
+            return sortedLhs[i].getRank() < sortedRhs[i].getRank();
+        }
     }
+
+    // all cards equal
     return false;
 }
 
@@ -245,12 +220,13 @@ void HoldEmGame::printPlayerHands(){
 }
 
 void HoldEmGame::collectAll(){
+    // collect cards from each player
     for (auto &hand: playerHands) {
         if(!hand.isEmpty()){
             deck.collect(hand);
         }
-	// clear the player's hand after collect
-	CardSet<HoldEmRank, Suit>::getCardsPtr(hand)->clear();
+ // clear the player's hand after collect
+ CardSet<HoldEmRank, Suit>::getCardsPtr(hand)->clear();
     }
     // collect shared cards
     deck.collect(shared);
@@ -280,23 +256,35 @@ int HoldEmGame::play(){
         std::cout << "BOARD (flop):" << std::endl;
         shared.print(std::cout);
 
-        // (7) initiate the PlayerHand structs for each player
-        std::vector<PlayerHand> playerEvaluations;
-        auto playerName = playerNames.begin();
-        for (const auto& playerHand : playerHands) {
-            playerEvaluations.emplace_back(playerHand, *playerName, HoldEmHandRank::undefined);
-            ++playerName;
-        }
+     // (7) initiate the PlayerHand structs for each player
+     std::vector<PlayerHand> playerEvaluations;
+     auto playerName = playerNames.begin();
+     for (const auto& playerHand : playerHands) {
+      playerEvaluations.emplace_back(playerHand, *playerName, HoldEmHandRank::undefined);
+      ++playerName;
+     }
 
-        for (auto& playerEvaluation : playerEvaluations) {
+     for (auto& playerEvaluation : playerEvaluations) {
             auto& hand = *CardSet<HoldEmRank, Suit>::getCardsPtr(playerEvaluation.hand);
-        auto& sharedCards = *CardSet<HoldEmRank, Suit>::getCardsPtr(shared);
-
+            auto& sharedCards = *CardSet<HoldEmRank, Suit>::getCardsPtr(shared);
 
             hand.insert(hand.end(), sharedCards.begin(), sharedCards.begin() + 3);
             playerEvaluation.rank = holdem_hand_evaluation(playerEvaluation.hand);
         }
-        
+
+        std::sort(playerEvaluations.rbegin(), playerEvaluations.rend());
+        std::cout << "\nPlayer rankings after the flop:\n";
+        for (const auto& playerEvaluation : playerEvaluations) {
+            std::cout << "Player " << playerEvaluation.name << std::endl;
+            playerEvaluation.hand.print(std::cout);
+            std::cout << "Rank: " << playerEvaluation.rank << std::endl;
+            std::cout << std::endl;
+        }
+ 
+
+ 
+ 
+
         // (8) call the deal member function again to deal the fourth card to the board member variable,
         deal();
 
@@ -310,39 +298,8 @@ int HoldEmGame::play(){
         // (11) print out the string "BOARD (river):" and then the cards in the board member variable,
         std::cout << "BOARD (river):" << std::endl;
         shared.print(std::cout);
-	
-
-        // (12) Update players' hands to include all community cards
-        for (auto& playerEvaluation : playerEvaluations) {
-            auto& hand = *CardSet<HoldEmRank, Suit>::getCardsPtr(playerEvaluation.hand);
-            auto& sharedCards = *CardSet<HoldEmRank, Suit>::getCardsPtr(shared);
-
-            if (hand.size() > 2) {
-                hand.erase(hand.begin() + 2, hand.end());
-            } 
-    		hand.insert(hand.end(), sharedCards.begin(), sharedCards.end());
-        }
-
-        // (13) Evaluate each player's best hand
-        for (auto& playerEvaluation : playerEvaluations) {
-                playerEvaluation.rank = holdem_hand_evaluation(playerEvaluation.hand);
-        }
-        // (14) sort players by their hand rank descendingly
-        std::sort(playerEvaluations.rbegin(), playerEvaluations.rend());
-
-	
-        // (15) print out each player's name, complete hand and evaluated rank
-        
-        for (const auto& playerEvaluation : playerEvaluations) {
-            std::cout << "Player " << playerEvaluation.name << std::endl;
-            playerEvaluation.hand.print(std::cout);
-            std::cout << "Rank: " << playerEvaluation.rank << std::endl;
-            std::cout << std::endl;
-
-        }
-
-        // (11) use the deck's collect member function repeatedly to move the cards back out of each player's hand into the deck,
-        // (12) use the deck's collect member function to move the cards back out of the board into the deck,
+ 
+         // (12) use the deck's collect member function to move the cards back out of the board into the deck,
         collectAll();
 
         // (13) print a string to the standard output stream that asks the user whether or not to end the game, 

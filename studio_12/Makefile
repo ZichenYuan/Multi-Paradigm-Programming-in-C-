@@ -1,10 +1,10 @@
 #		The name of the executable file you want to build
-EXECUTABLE	= lab2
+EXECUTABLE	= studio12
 
 #		Source (.cpp) files you want to compile
 #		(NOTE: Don't include header (.h) files, or any source (.cpp) files
 #		that only contain template class method definitions.)
-CMPL_SRCS	=  cardsuit.cpp pinochle.cpp holdEm.cpp main.cpp game.cpp pinochleGame.cpp holdEmGame.cpp
+CMPL_SRCS	= main.cpp
 
 #               Source files containing only template class method definitions
 TMPL_SRCS	= 
@@ -38,7 +38,7 @@ DEFFLAGS  = -DUNIX
 
 #               Any general flags that should be set for the compiler
 #               NOTE: to optimize fully, change -g to -O4
-CXXFLAGS  =     -DTEMPLATE_HEADERS_INCLUDE_SOURCE
+CXXFLAGS  =     -Wall -W -g $(SPECIAL_FLAGS)
 
 #               Any -I directories in which there are .h files that should be included
 INCFLAGS  =

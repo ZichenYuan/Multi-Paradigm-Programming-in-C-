@@ -58,6 +58,27 @@ Segmentation fault (core dumped)
 Solution: Incremented the playerHand pointer before calling `suit_independent_evaluation` resulting in the pointer pointing to something that doesn't exist. Moved `suit_independent_evaluation` before updating the pointer.
 
 ### Final Output
+
+#### Test (Exceptions)
+```
+[kaiyun.p@iht32-1508.sif lab2]$ ./lab2
+Usage: ./lab2 <GameName> <Player1> <Player2> ...
+GameName: Pinochle or HoldEm.
+Pinochle: 4 players.
+HoldEm: 2-9 players.
+[kaiyun.p@iht32-1508.sif lab2]$ echo $?
+1
+[kaiyun.p@iht32-1508.sif lab2]$ ./lab2 HoldEm
+Usage: ./lab2 HoldEm <Player1> <Player2> [<Player3> ... <Player9>]
+HoldEm needs 2-9 players.
+[kaiyun.p@iht32-1508.sif lab2]$ echo $?
+4
+[kaiyun.p@iht32-1508.sif lab2]$ ./lab2 Game3
+Error: Unknown game type "Game3".
+[kaiyun.p@iht32-1508.sif lab2]$ echo $?
+2
+```
+
 #### Pinochle
 ```
 [y.zichen@shell lab2]$ ./lab2 Pinochle Tom David Jess John
@@ -124,7 +145,125 @@ Do you want to end the game? (Type 'yes' to end): yes
 ```
 
 #### Texas HoldEm
+```
+[kaiyun.p@iht32-1508.sif lab2]$ ./lab2 HoldEm Apple Bob Candy Debby
+Name: Apple
+A of S  7 of C  
 
+Name: Bob
+2 of H  A of H  
+
+Name: Candy
+3 of S  8 of H  
+
+Name: Debby
+J of S  Q of D  
+
+BOARD (flop):
+5 of S  9 of S  4 of D  
+
+Player rankings after the flop:
+Player Apple
+A of S  7 of C  5 of S  9 of S  
+4 of D  
+Rank: X High
+
+Player Bob
+2 of H  A of H  5 of S  9 of S  
+4 of D  
+Rank: X High
+
+Player Debby
+J of S  Q of D  5 of S  9 of S  
+4 of D  
+Rank: X High
+
+Player Candy
+3 of S  8 of H  5 of S  9 of S  
+4 of D  
+Rank: X High
+
+BOARD (turn):
+5 of S  9 of S  4 of D  3 of H  
+BOARD (river):
+5 of S  9 of S  4 of D  3 of H  
+9 of H  
+Do you want to end the game? (Type 'yes' to end): no
+Starting a new game
+Name: Apple
+5 of H  Q of D  
+
+Name: Bob
+Q of S  9 of D  
+
+Name: Candy
+7 of D  9 of C  
+
+Name: Debby
+2 of S  2 of D  
+
+BOARD (flop):
+4 of H  A of C  4 of D  
+
+Player rankings after the flop:
+Player Debby
+2 of S  2 of D  4 of H  A of C  
+4 of D  
+Rank: Two Pair
+
+Player Bob
+Q of S  9 of D  4 of H  A of C  
+4 of D  
+Rank: Pair
+
+Player Apple
+5 of H  Q of D  4 of H  A of C  
+4 of D  
+Rank: Pair
+
+Player Candy
+7 of D  9 of C  4 of H  A of C  
+4 of D  
+Rank: Pair
+
+BOARD (turn):
+4 of H  A of C  4 of D  2 of C  
+BOARD (river):
+4 of H  A of C  4 of D  2 of C  
+A of D  
+Do you want to end the game? (Type 'yes' to end): yes
+```
 
 
 ### Design decisions
+Custom Copy Constructor in CardSet Class Template
+
+We implemented a custom copy constructor for the CardSet class to ensure a deep copy of the card vector, preventing unintended data sharing between CardSet objects. We also declared a default constructor using = default to let the compiler synthesize it.
+
+Controlled Violation of Encapsulation
+
+We added a static public member function to CardSet that returns a pointer to the protected card vector. This controlled access allows operations like sorting and evaluation, while minimizing the risk of misuse.
+
+Meld Evaluation for Pinochle Game
+
+We created an enum class, PinochleMelds, to represent melds, and used an array to map meld types to point values, simplifying lookups. A private function, suit_independent_evaluation, evaluates melds by making a deep copy of the player's CardSet to avoid modifying the original set.
+
+Hold'Em Hand Evaluation Logic
+
+The HoldEmGame class has an enum class, HoldEmHandRank, for different poker hand ranks. The holdem_hand_evaluation function uses a deep copy of the CardSet to evaluate and rank hands, ensuring the original set remains unchanged.
+
+Nested Struct for Player Hand in Hold'Em Game
+
+We added a nested struct in HoldEmGame to represent a player's state, including a CardSet, player name, and hand rank. This design simplifies data management and game logic.
+
+Overloading Comparison Operators
+
+We overloaded comparison operators for Card to facilitate card ordering by rank or suit. In HoldEmGame, we overloaded the less than (<) operator for the nested struct to rank players' hands according to game rules.
+
+Use of Copy Constructor During Evaluation
+
+The evaluation functions use deep copies of players' hands to maintain integrity of the original cards while allowing sorting and manipulation for evaluation purposes.
+
+Print Representation of Melds and Hands
+
+We overloaded operator<< for PinochleMelds and HoldEmHandRank to provide a readable representation of melds and hand ranks, making gameplay output more user-friendly and helpful for debugging.

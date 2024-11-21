@@ -6,7 +6,7 @@ class MyClass {
 
     public:
     MyClass() = default;
-    MyClass(char* st);
+    MyClass(const char* st);
     MyClass(const MyClass& mc);
 
     MyClass& operator=(const MyClass& mc);
