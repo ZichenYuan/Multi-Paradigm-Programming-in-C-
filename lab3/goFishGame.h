@@ -21,7 +21,6 @@ class GoFishGame: public Game {
         D deck;
         std::vector<CardSet<R, S>> playerHands;
         std::vector<CardSet<R, S>> playerBooks;
-        // virtual void deal();
         bool turn(int playerNumber);
         void deal();
     private:

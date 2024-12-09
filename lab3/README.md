@@ -23,9 +23,10 @@ main.cpp:86:48: note:   initializing argument 2 of ‘const char** new_argv(cons
 main.cpp:117:51: error: cannot bind rvalue ‘(int)argv’ to ‘int&’
              const char** newArgv = new_argv(argc, argv);
                                                    ^~~~
-
 ```
-Solution: swapping the order of argc and argv when inputting the two arguments to fit the function definition.
+
+Solution: Swapping the order of argc and argv when inputting the two arguments to fit the function definition.
+
 
 ```
 [y.zichen@shell lab3]$ make
@@ -39,201 +40,18 @@ g++ -o lab3 -DUNIX   -DTEMPLATE_HEADERS_INCLUDE_SOURCE cardsuit.cpp pinochle.cpp
 collect2: error: ld returned 1 exit status
 make: *** [Makefile:60: lab3] Error 1
 ```
+Solution: Solved by let destructor equal to default. Didn't define destructor correctly.
 
 ### Runtime errors
 ```
-[y.zichen@shell lab3]$ ./lab3 GoFis HoldEm A1 B2 C3 D4 E5
+[y.zichen@shell lab3]$ ./lab3 GoFish HoldEm A1 B2 C3 D4 E5
 Segmentation fault (core dumped)
 ```
-Solution: Didn't initialize playerBooks in constructor
+Solution: Didn't initialize playerBooks in constructor. Solved by allocating the playerBooks vector in the constructor.
+
 
 ```
 [y.zichen@shell lab3]$ ./lab3 GoFis HoldEm  A1 B2 C3 D4 E5
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
-Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
 Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
 Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check
 Which card rank to ask for? Enter an integer: Which player to ask from? Enter an integer: passed initial check

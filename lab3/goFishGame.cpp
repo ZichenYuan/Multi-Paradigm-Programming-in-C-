@@ -11,7 +11,7 @@ GoFishGame<Suit, HoldEmRank, HoldEmDeck>::GoFishGame(int argc, const char* argv[
 
     std::cout << "Using HoldEm deck, rank 2 ~ A correspond to 0 ~ 12" << std::endl;
     playerHands.resize(numPlayer);
-    //one playerbook for each player indicating the completed book of that player
+    // one playerbook for each player indicating the completed book of that player
     playerBooks.resize(numPlayer);
     deck = HoldEmDeck();
 
@@ -25,7 +25,7 @@ GoFishGame<Suit, HoldEmRank, HoldEmDeck>::GoFishGame(int argc, const char* argv[
     }
 }
 
-template<> //template specialization
+template<> // template specialization
 GoFishGame<Suit, PinochleRank, PinochleDeck>::GoFishGame(int argc, const char* argv[]): Game(argc, argv){
     // erase the string for deck name
     playerNames.erase(playerNames.begin());
@@ -105,7 +105,6 @@ int GoFishGame<S, R, D>::play() {
         std::cout << std::endl;
 
         //check termination condition
-        // TODO double check
         if ((deck.isEmpty() && handsEmpty) || nonEmptyCnt <2) {
             game = false;
             std::cout << "The game will be terminated at round " << round << std::endl;
@@ -188,7 +187,6 @@ bool GoFishGame<S, R, D>::turn(int playerNumber) {
     int requestedPlayer;
     int requestedRank;
 
-    //TODO: add usage instruction
     while(!valid) {
         std::cout << "Which card rank to ask for? Enter an integer: ";
         while (true) {
@@ -256,7 +254,6 @@ bool GoFishGame<S, R, D>::turn(int playerNumber) {
         // if the card drawn is the requestedRank
         deck >> playerHands[playerNumber-1];
 
-        //TODO ?
         if ((*(--playerHands[playerNumber - 1].end())).getRank() == static_cast<R>(requestedRank)){
             std::cout << "Successfully get requested rank: " << static_cast<R>(requestedRank) << std::endl;
             collect_books(playerNumber);
